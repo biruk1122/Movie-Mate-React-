@@ -24,6 +24,7 @@ function App() {
           </h1>
         </header>
         <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+        <h1 className="text-gray-100 text-center text-2xl">{searchTerm}</h1>
       </div>
     </main>
   )
