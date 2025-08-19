@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import Search from "./components/Search"
 import Spinner from "./components/Spinner"
 import MovieCards from "./components/MovieCards"
+import { useDebounce } from "react-use"
 
 const API_BASE_URL = "https://api.themoviedb.org/3"
 
@@ -20,6 +21,11 @@ function App() {
   const [errorMessage, setErrorMessage] = useState("")
   const [movieList, setMovieList] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+  const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
+
+  //Debounce the search term to prevent making too many API requests
+  //by waiting for the use to stop typing for 500ms
+  useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm])
 
   const fetchMovies = async (query = "") => {
     setIsLoading(true)
@@ -52,8 +58,8 @@ function App() {
   }
 
   useEffect(() => {
-    fetchMovies(searchTerm)
-  }, [searchTerm])
+    fetchMovies(debouncedSearchTerm)
+  }, [debouncedSearchTerm])
 
   return (
     <main className="p-8 bg-gray-950 min-h-screen flex items-center justify-center">
