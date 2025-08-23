@@ -5,7 +5,7 @@ function MovieCards({ movie, onClick }) {
   return (
     <div
       className="bg-gray-900 p-5 rounded-2xl shadow-lg cursor-pointer hover:scale-105 transition"
-      onClick={() => onClick(movie)} // ✅ Pass movie back up
+      onClick={() => onClick(movie)} //  Pass movie back up
     >
       <img
         src={

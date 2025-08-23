@@ -24,7 +24,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [debouncedSearchTerm, setDebouncedSearchTerm] = useState("")
   const [trendingMovies, setTrendingMovies] = useState([])
-  const [selectedMovie, setSelectedMovie] = useState(null) // ✅ for modal
+  const [selectedMovie, setSelectedMovie] = useState(null) //  for modal
 
   // Debounce search input
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm])
@@ -45,11 +45,11 @@ function App() {
       }
 
       const data = await response.json()
-      setMovieList(data.results || [])
+      setMovieList(data.results)
 
-      if (query && data.results.length > 0) {
-        await updateSearchCount(query, data.results[0])
-      }
+      // if (query && data.results.length > 0) {
+      //   await updateSearchCount(query, data.results[0])
+      // }
     } catch (error) {
       console.error(`Error fetching movies: ${error}`)
       setErrorMessage("Error fetching movies. Please try again later.")
@@ -76,6 +76,12 @@ function App() {
     loadTrendingMovies()
   }, [])
 
+  useEffect(() => {
+    if (debouncedSearchTerm && movieList.length > 0) {
+      updateSearchCount(debouncedSearchTerm, movieList[0])
+    }
+  }, [debouncedSearchTerm, movieList])
+
   return (
     <main className="p-8 bg-gray-950 min-h-screen flex items-center justify-center">
       <div className="pattern" />
@@ -101,15 +107,22 @@ function App() {
 
         {/* Trending Movies */}
         {trendingMovies.length > 0 && (
-          <section>
+          <section className="px-2">
             <h2 className="text-green-100 text-2xl mt-10 mb-4">
               Trending Movies
             </h2>
-            <ul className="text-white grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
+            <ul className="text-white grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
               {trendingMovies.map((movie, index) => (
-                <li key={movie.$id || movie.id || index}>
+                <li
+                  //className="flex flex-col items-center"
+                  key={movie.$id || movie.id || index}
+                >
                   <p>{index + 1}</p>
-                  <img src={movie.poster_url} alt={movie.title} />
+                  <img
+                    className="w-full h-full  rounded-lg"
+                    src={movie.poster_url}
+                    alt={movie.title}
+                  />
                   {/* <MovieCards
                     movie={movie}
                     onClick={() => setSelectedMovie(movie)}
@@ -128,7 +141,7 @@ function App() {
           ) : errorMessage ? (
             <p className="text-red-500">{errorMessage}</p>
           ) : (
-            <ul className="grid grid-cols-1 gap-5 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+            <ul className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 ">
               {movieList.map((movie) => (
                 <li key={movie.id}>
                   <MovieCards
@@ -158,11 +171,11 @@ function App() {
             <img
               src={
                 selectedMovie.poster_path
-                  ? `https://image.tmdb.org/t/p/w500/${selectedMovie.poster_path}`
+                  ? `https://image.tmdb.org/t/p/w400/${selectedMovie.poster_path}`
                   : "./Poster_not_available.jpg"
               }
               alt={selectedMovie.title}
-              className="rounded-lg mb-4 w-full max-h-[300px] object-cover"
+              className="rounded-lg mb-4 w-full max-h-[300px] object-contain"
             />
 
             {/* Movie Info */}
