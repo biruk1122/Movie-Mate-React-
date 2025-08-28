@@ -55,12 +55,11 @@ npm install
 3. **Set up environment variables**
    Create a .env file in the root folder:
 
-````VITE_TMDB_API_KEY=your_tmdb_api_key_here
+```VITE_TMDB_API_KEY=your_tmdb_api_key_here
 VITE_APPWRITE_PROJECT_ID=your_appwrite_project_id
 VITE_APPWRITE_DATABASE_ID=your_appwrite_database_id
 VITE_APPWRITE_COLLECTION_ID=your_appwrite_collection_id
- ```
-
+```
 
 4. **Run the app locally**
 
@@ -68,7 +67,6 @@ VITE_APPWRITE_COLLECTION_ID=your_appwrite_collection_id
 npm run dev
 
   ```
-
 5. **Open in browser**
 
  ```
