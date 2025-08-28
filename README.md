@@ -59,20 +59,21 @@ npm install
 VITE_APPWRITE_PROJECT_ID=your_appwrite_project_id
 VITE_APPWRITE_DATABASE_ID=your_appwrite_database_id
 VITE_APPWRITE_COLLECTION_ID=your_appwrite_collection_id
+ ```
 
-```
 
 4. **Run the app locally**
 
-```
+  ```
 npm run dev
-````
+
+  ```
 
 5. **Open in browser**
 
-```
+ ```
 http://localhost:5173
-```
+ ```
 
 ## 📂 Project Structure
 
